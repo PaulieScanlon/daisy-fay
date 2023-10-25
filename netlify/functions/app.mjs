@@ -1,3 +1,3 @@
-import app from '../../server.js';
+import * as app from '../../server.js';
 
 export const handler = serverless(app);
