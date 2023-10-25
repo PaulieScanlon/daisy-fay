@@ -12,14 +12,14 @@ const viteBuild = async (params) => {
 };
 
 // setup
-await viteBuild({ minify: true, emptyOutDir: true });
+await viteBuild({ minify: false, emptyOutDir: true });
 
 // client
 await viteBuild({ outDir: 'dist/client' });
 
 // server
 await viteBuild({
-  minify: true,
+  minify: false,
   ssr: true,
   rollupOptions: {
     input: 'src/entry-server.jsx',
@@ -33,7 +33,7 @@ const functions = await glob('./src/pages/*/function.js');
 
 await functions.forEach(async (file) => {
   await viteBuild({
-    minify: true,
+    minify: false,
     ssr: true,
     rollupOptions: {
       input: file,
