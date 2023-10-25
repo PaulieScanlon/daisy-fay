@@ -1,6 +1,5 @@
 import fs from 'fs';
 import express from 'express';
-import serverless from 'serverless-http';
 
 import { resolve, exists } from './src/utils/index.js';
 
