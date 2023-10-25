@@ -1,7 +1,7 @@
 import fs from 'fs';
 import express from 'express';
 
-import { resolve, exists } from './src/utils/index.js';
+const { resolve, exists } = require('./src/utils/index.js');
 
 export const app = express();
 
