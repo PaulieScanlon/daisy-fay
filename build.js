@@ -44,15 +44,15 @@ await functions.forEach(async (file) => {
   });
 });
 
-// express
-await viteBuild({
-  minify: false,
-  ssr: true,
-  rollupOptions: {
-    input: 'server.js',
-    output: {
-      dir: 'dist/express',
-      format: 'cjs',
-    },
-  },
-});
+// // express
+// await viteBuild({
+//   minify: false,
+//   ssr: true,
+//   rollupOptions: {
+//     input: 'server.js',
+//     output: {
+//       dir: 'dist/express',
+//       format: 'cjs',
+//     },
+//   },
+// });
