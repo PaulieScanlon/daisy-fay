@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "NODE_ENV=development node server-local.js",
+    "dev": "node server-local.js",
     "build": "node build",
-    "preview": "NODE_ENV=production node server"
+    "preview": "NODE_ENV=preview node server"
   },
   "dependencies": {
     "@netlify/functions": "^2.3.0",
@@ -19,7 +19,6 @@
     "serverless-http": "^3.2.0"
   },
   "devDependencies": {
-    "@types/express": "^4.17.20",
     "@vitejs/plugin-react": "^4.0.3",
     "vite": "^4.5.0"
   }

@@ -43,6 +43,8 @@ app.use('*', async (req, res) => {
 
 export default app;
 
-// app.listen(5173, () => {
-//   console.log('http://localhost:5173');
-// });
+if (process.env.NODE_ENV === 'preview') {
+  app.listen(5173, () => {
+    console.log('http://localhost:5173');
+  });
+}
