@@ -23,10 +23,10 @@ app.use('*', async (req, res) => {
     render = (await import('./dist/server/entry-server.js')).render;
     serverFile = `./dist/functions${safeUrl}/function.js`;
 
-    // if (exists(serverFile)) {
-    serverFunction = (await import(serverFile)).GET;
-    serverData = await serverFunction();
-    // }
+    if (exists(serverFile)) {
+      serverFunction = (await import(serverFile)).GET;
+      serverData = await serverFunction();
+    }
 
     const dom = render(url, serverData);
     const script = `<script>window.__data__=${JSON.stringify(serverData)}</script>`;
