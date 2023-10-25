@@ -13,13 +13,15 @@ const app = express();
 const createServer = async () => {
   let template, render, serverFile, serverFunction, serverData;
 
+  const assetPath = process.env.NODE_ENV === 'preview' ? './dist/' : '../';
+
   const resolve = (file) => {
     return path.resolve(__dirname, file);
   };
 
   app.use((await import('compression')).default());
   app.use(
-    (await import('serve-static')).default(resolve('dist/client'), {
+    (await import('serve-static')).default(resolve(`${assetPath}client`), {
       index: false,
     })
   );
@@ -29,9 +31,9 @@ const createServer = async () => {
     const safeUrl = url === '/' ? '/index' : req.originalUrl;
 
     try {
-      template = fs.readFileSync(resolve('./dist/client/index.html'), 'utf-8');
-      render = (await import('./dist/server/entry-server.js')).render;
-      serverFile = `./dist/functions${safeUrl}/function.js`;
+      template = fs.readFileSync(resolve(`${assetPath}client/index.html`), 'utf-8');
+      render = (await import(`${assetPath}server/entry-server.js`)).render;
+      serverFile = `${assetPath}functions${safeUrl}/function.js`;
 
       if (exists(serverFile)) {
         serverFunction = (await import(serverFile)).GET;
