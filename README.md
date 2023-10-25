@@ -27,7 +27,7 @@ export const GET = async () => {
 npm run dev
 ```
 
-Site available to view on `http://localhost:5173`
+Site available to view on `http://localhost:4173`
 
 ## Production
 
@@ -35,7 +35,7 @@ Site available to view on `http://localhost:5173`
 npm run build
 ```
 
-## Preview
+### Production Preview
 
 ```
 npm run preview
