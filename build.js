@@ -46,12 +46,12 @@ await functions.forEach(async (file) => {
 
 // app
 await viteBuild({
-  minify: true,
+  minify: false,
   ssr: true,
   rollupOptions: {
     input: 'server.js',
     output: {
-      dir: 'dist/express',
+      dir: './',
       format: 'cjs',
     },
   },
