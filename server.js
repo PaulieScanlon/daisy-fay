@@ -8,7 +8,7 @@ const app = express();
 const createServer = async () => {
   let template, render, serverFile, serverFunction, serverData;
 
-  const assetPath = process.env.NODE_ENV === 'preview' ? './dist' : '..';
+  const assetPath = process.env.NODE_ENV === 'preview' ? './dist' : process.cwd();
 
   app.use((await import('compression')).default());
   app.use(
