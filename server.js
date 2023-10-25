@@ -1,27 +1,18 @@
 import fs from 'fs';
 import express from 'express';
-import path from 'path';
-import { fileURLToPath } from 'url';
 
 import exists from './src/utils/exists.js';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 const app = express();
 
 const createServer = async () => {
   let template, render, serverFile, serverFunction, serverData;
 
-  const assetPath = process.env.NODE_ENV === 'preview' ? './dist/' : '../';
-
-  const resolve = (file) => {
-    return path.resolve(__dirname, file);
-  };
+  const assetPath = process.env.NODE_ENV === 'preview' ? './dist' : '..';
 
   app.use((await import('compression')).default());
   app.use(
-    (await import('serve-static')).default(resolve(`${assetPath}client`), {
+    (await import('serve-static')).default(`${assetPath}/client`, {
       index: false,
     })
   );
@@ -31,9 +22,9 @@ const createServer = async () => {
     const safeUrl = url === '/' ? '/index' : req.originalUrl;
 
     try {
-      template = fs.readFileSync(resolve(`${assetPath}client/index.html`), 'utf-8');
-      render = (await import(`${assetPath}server/entry-server.js`)).render;
-      serverFile = `${assetPath}functions${safeUrl}/function.js`;
+      template = fs.readFileSync(`${assetPath}/client/index.html`, 'utf-8');
+      render = (await import(`${assetPath}/server/entry-server.js`)).render;
+      serverFile = `${assetPath}/functions${safeUrl}/function.js`;
 
       if (exists(serverFile)) {
         serverFunction = (await import(serverFile)).GET;
