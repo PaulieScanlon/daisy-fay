@@ -20,7 +20,7 @@ app.use('*', async (req, res) => {
   const safeUrl = url === '/' ? '/index' : req.originalUrl;
 
   try {
-    template = fs.readFileSync(resolve('dist/client/index.html', import.meta.url), 'utf-8');
+    template = fs.readFileSync(resolve('./dist/client/index.html', import.meta.url), 'utf-8');
     render = (await import('./dist/server/entry-server.js')).render;
     serverFile = `./dist/functions${safeUrl}/function.js`;
 
