@@ -3,7 +3,7 @@ import express from 'express';
 
 import { resolve, exists } from './src/utils/index.js';
 
-export const app = express();
+export default app = express();
 
 let template, render, serverFile, serverFunction, serverData;
 
