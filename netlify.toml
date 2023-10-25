@@ -1,3 +1,5 @@
+[build]
+  environment = { AWS_LAMBDA_JS_RUNTIME = 'nodejs18.x', NODE_VERSION = '18' }
 [functions]
   external_node_modules = ["express"]
   node_bundler = "esbuild"
