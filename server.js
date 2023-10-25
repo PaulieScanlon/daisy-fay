@@ -1,17 +1,25 @@
 import fs from 'fs';
 import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 import exists from './src/utils/exists.js';
-import resolve from './src/utils/resolve.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 
 const createServer = async () => {
   let template, render, serverFile, serverFunction, serverData;
 
+  const resolve = (file) => {
+    return path.resolve(__dirname, file);
+  };
+
   app.use((await import('compression')).default());
   app.use(
-    (await import('serve-static')).default(`${process.cwd()}/dist/client`, {
+    (await import('serve-static')).default(resolve('dist/client'), {
       index: false,
     })
   );
@@ -21,7 +29,7 @@ const createServer = async () => {
     const safeUrl = url === '/' ? '/index' : req.originalUrl;
 
     try {
-      template = fs.readFileSync(`${process.cwd()}/dist/client/index.html`, 'utf-8');
+      template = fs.readFileSync(resolve('./dist/client/index.html'), 'utf-8');
       render = (await import('./dist/server/entry-server.js')).render;
       serverFile = `./dist/functions${safeUrl}/function.js`;
 

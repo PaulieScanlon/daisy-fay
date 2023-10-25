@@ -1,13 +1,21 @@
 import fs from 'fs';
 import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import { createServer as createViteServer } from 'vite';
 
 import exists from './src/utils/exists.js';
-import resolve from './src/utils/resolve.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 
 const createServer = async () => {
+  const resolve = (file) => {
+    return path.resolve(__dirname, file);
+  };
+
   let template, render, serverFile, serverFunction, serverData;
 
   const vite = await createViteServer({
@@ -24,7 +32,7 @@ const createServer = async () => {
     const safeUrl = url === '/' ? '/index' : req.originalUrl;
 
     try {
-      template = fs.readFileSync(resolve('index.html', import.meta.url), 'utf-8');
+      template = fs.readFileSync(resolve('index.html'), 'utf-8');
       template = await vite.transformIndexHtml(url, template);
       render = (await vite.ssrLoadModule('/src/entry-server.jsx')).render;
       serverFile = `src/pages${safeUrl}/function.js`;
