@@ -11,7 +11,7 @@ const createServer = async () => {
 
   app.use((await import('compression')).default());
   app.use(
-    (await import('serve-static')).default('dist/client', {
+    (await import('serve-static')).default(`${process.cwd()}/dist/client`, {
       index: false,
     })
   );
@@ -21,7 +21,7 @@ const createServer = async () => {
     const safeUrl = url === '/' ? '/index' : req.originalUrl;
 
     try {
-      template = fs.readFileSync('./dist/client/index.html', 'utf-8');
+      template = fs.readFileSync(`${process.cwd()}/dist/client/index.html`, 'utf-8');
       render = (await import('./dist/server/entry-server.js')).render;
       serverFile = `./dist/functions${safeUrl}/function.js`;
 
