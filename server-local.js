@@ -2,7 +2,8 @@ import fs from 'fs';
 import express from 'express';
 import { createServer as createViteServer } from 'vite';
 
-import { resolve, exists } from './src/utils/index.js';
+import exists from './src/utils/exists.js';
+import resolve from './src/utils/resolve.js';
 
 const app = express();
 

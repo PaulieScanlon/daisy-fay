@@ -1,9 +1,10 @@
 import fs from 'fs';
 import express from 'express';
 
-import { resolve, exists } from './src/utils/index.js';
+import exists from './src/utils/exists.js';
+import resolve from './src/utils/resolve.js';
 
-export const app = express();
+const app = express();
 
 let template, render, serverFile, serverFunction, serverData;
 
@@ -39,6 +40,8 @@ app.use('*', async (req, res) => {
     res.status(500).end(event.stack);
   }
 });
+
+export default app;
 
 // app.listen(5173, () => {
 //   console.log('http://localhost:5173');
