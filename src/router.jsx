@@ -1,7 +1,14 @@
 import { Route, Routes } from 'react-router-dom';
 
-import Index from './pages/index';
-import Carts from './pages/carts';
+const pages = import.meta.glob('./pages/*/page.jsx', { eager: true });
+
+const routes = Object.keys(pages).map((path) => {
+  const dir = path.split('/')[2];
+  return {
+    path: dir === 'index' ? '/' : dir,
+    element: pages[path].default,
+  };
+});
 
 export const Router = ({ data }) => {
   if (typeof window !== 'undefined') {
@@ -10,8 +17,10 @@ export const Router = ({ data }) => {
 
   return (
     <Routes>
-      <Route path='/' element={<Index data={{ data }} />} />
-      <Route path='/carts' element={<Carts data={{ data }} />} />
+      {routes.map((route, index) => {
+        const { path, element: Component } = route;
+        return <Route key={index} path={path} element={<Component data={{ data }} />} />;
+      })}
     </Routes>
   );
 };

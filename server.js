@@ -41,7 +41,7 @@ async function createServer(isProduction = process.env.NODE_ENV === 'production'
       if (isProduction) {
         template = fs.readFileSync(resolve('dist/client/index.html'), 'utf-8');
         render = (await import('./dist/server/entry-server.js')).render;
-        serverFile = `./dist/functions${safeUrl}.function.js`;
+        serverFile = `./dist/functions${safeUrl}/function.js`;
 
         if (exists(serverFile)) {
           serverFunction = (await import(serverFile)).GET;
@@ -51,7 +51,7 @@ async function createServer(isProduction = process.env.NODE_ENV === 'production'
         template = fs.readFileSync(resolve('index.html'), 'utf-8');
         template = await vite.transformIndexHtml(url, template);
         render = (await vite.ssrLoadModule('/src/entry-server.jsx')).render;
-        serverFile = `src/pages${safeUrl}.function.js`;
+        serverFile = `src/pages${safeUrl}/function.js`;
 
         if (exists(serverFile)) {
           serverFunction = (await vite.ssrLoadModule(serverFile)).GET;

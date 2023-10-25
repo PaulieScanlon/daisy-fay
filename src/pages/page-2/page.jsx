@@ -1,7 +1,7 @@
 const Page = ({ data }) => {
   return (
     <main>
-      <h1>Carts</h1>
+      <h1>Page 2</h1>
       <pre>{JSON.stringify(data, null, 2)}</pre>
     </main>
   );

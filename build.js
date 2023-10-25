@@ -29,16 +29,16 @@ await viteBuild({
   },
 });
 
-const files = await glob('./src/pages/*.function.js');
+const functions = await glob('./src/pages/*/function.js');
 
-await files.forEach(async (file) => {
+await functions.forEach(async (file) => {
   await viteBuild({
     minify: false,
     ssr: true,
     rollupOptions: {
       input: file,
       output: {
-        dir: 'dist/functions',
+        dir: `dist/functions/${file.split('/')[2]}`,
       },
     },
   });
