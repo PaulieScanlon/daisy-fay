@@ -4,13 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "node server-local.js",
-    "build": "node build",
-    "preview": "NODE_ENV=preview node server"
+    "dev": "node app.js",
+    "build": "node build"
   },
   "dependencies": {
     "@netlify/functions": "^2.3.0",
-    "compression": "^1.7.4",
     "express": "^4.18.2",
     "glob": "^10.3.10",
     "react": "^18.2.0",

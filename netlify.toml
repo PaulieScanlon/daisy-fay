@@ -1,5 +1,6 @@
 [functions]
   external_node_modules = ["express"]
+  included_files = ["./netlify/functions/client/**", "./netlify/functions/server/**", "./netlify/functions/functions/**"]
   node_bundler = "esbuild"
 [[redirects]]
   force = true

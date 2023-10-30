@@ -1,21 +1,10 @@
 import fs from 'fs';
 import express from 'express';
-import path from 'path';
-import { fileURLToPath } from 'url';
 import { createServer as createViteServer } from 'vite';
-
-import exists from './src/utils/exists.js';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 const app = express();
 
-const createServer = async () => {
-  const resolve = (file) => {
-    return path.resolve(__dirname, file);
-  };
-
+const server = async () => {
   let template, render, serverFile, serverFunction, serverData;
 
   const vite = await createViteServer({
@@ -32,12 +21,12 @@ const createServer = async () => {
     const safeUrl = url === '/' ? '/index' : req.originalUrl;
 
     try {
-      template = fs.readFileSync(resolve('index.html'), 'utf-8');
+      template = fs.readFileSync('index.html', 'utf-8');
       template = await vite.transformIndexHtml(url, template);
       render = (await vite.ssrLoadModule('/src/entry-server.jsx')).render;
       serverFile = `src/pages${safeUrl}/function.js`;
 
-      if (exists(serverFile)) {
+      if (fs.existsSync(serverFile)) {
         serverFunction = (await vite.ssrLoadModule(serverFile)).GET;
         serverData = await serverFunction();
       }
@@ -47,16 +36,16 @@ const createServer = async () => {
       const html = template.replace(`<!--ssr-outlet-->`, `${dom} ${script}`);
 
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
-    } catch (event) {
-      vite.ssrFixStacktrace(event);
-      console.log(event.stack);
-      res.status(500).end(event.stack);
+    } catch (error) {
+      const dom = `<pre>${JSON.stringify(error, null, 2)}</pre>`;
+      const html = template.replace(`<!--ssr-outlet-->`, dom);
+      res.status(500).set({ 'Content-Type': 'text/html' }).end(html);
     }
   });
 };
 
-createServer();
+server();
 
-app.listen(4173, () => {
-  console.log('http://localhost:4173');
+app.listen(5173, () => {
+  console.log('http://localhost:5173.');
 });

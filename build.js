@@ -2,8 +2,6 @@ import { glob } from 'glob';
 import { build } from 'vite';
 
 const viteBuild = async (params) => {
-  // console.log('');
-  // console.log(params);
   await build({
     build: {
       ...params,
@@ -12,23 +10,26 @@ const viteBuild = async (params) => {
 };
 
 // setup
-await viteBuild({ minify: false, emptyOutDir: true });
+await viteBuild({ minify: false });
 
-// client
-await viteBuild({ outDir: 'dist/client' });
+// entry-client;
+await viteBuild({
+  outDir: 'netlify/functions/client',
+});
 
-// server
+// entry-server;
 await viteBuild({
   minify: false,
   ssr: true,
   rollupOptions: {
     input: 'src/entry-server.jsx',
     output: {
-      dir: 'dist/server',
+      dir: 'netlify/functions/server',
     },
   },
 });
 
+// functions
 const functions = await glob('./src/pages/*/function.js');
 
 await functions.forEach(async (file) => {
@@ -38,21 +39,9 @@ await functions.forEach(async (file) => {
     rollupOptions: {
       input: file,
       output: {
-        dir: `dist/functions/${file.split('/')[2]}`,
+        dir: `netlify/functions/functions/${file.split('/')[2]}`,
+        format: 'cjs',
       },
     },
   });
 });
-
-// // express
-// await viteBuild({
-//   minify: false,
-//   ssr: true,
-//   rollupOptions: {
-//     input: 'server.js',
-//     output: {
-//       dir: 'dist/express',
-//       format: 'cjs',
-//     },
-//   },
-// });
