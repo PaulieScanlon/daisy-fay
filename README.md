@@ -2,6 +2,8 @@
 
 A React SSR Framework powered by Vite
 
+- 🚀 [https://daisy-fay.netlify.app/](https://daisy-fay.netlify.app/)
+
 ## Getting Started
 
 - New pages are added to `src/pages/`
