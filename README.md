@@ -1,21 +1,38 @@
-# Daisy Fay
+# 🌼 Daisy Fay
 
-A React SSR Framework powered by Vite
+A [React](https://react.dev/) application with server-side rendering and server-side data fetching. Powered by [Vite](https://vitejs.dev/) and deployed using [Netlify Functions](https://docs.netlify.com/integrations/frameworks/express/).
 
 - 🚀 [https://daisy-fay.netlify.app/](https://daisy-fay.netlify.app/)
 
 ## Getting Started
 
 - New pages are added to `src/pages/`
-- Pages are called `page.jsx`
-- (Optional) Functions are called `function.js`
+- Pages are named `page.jsx`
+- Functions are named `function.js` (Optional)
+
+### Pages
+
+Pages must use `export default`. Function data is available via the `data` prop.
+
+```javascript
+const Page = ({ data }) => {
+  return (
+    <main>
+      <h1>Index</h1>
+      <pre>{JSON.stringify(data, null, 2)}</pre>
+    </main>
+  );
+};
+
+export default Page;
+```
 
 ### Functions
 
-Functions must export `GET` async function.
+Functions must export `getServerData` async function.
 
 ```javascript
-export const GET = async () => {
+export const getServerData = async () => {
   const request = await fetch('https://...');
   const data = await request.json();
 
