@@ -1,14 +1,16 @@
 # 🌼 Daisy Fay
 
-A [React](https://react.dev/) application with server-side rendering and server-side data fetching. Powered by [Vite](https://vitejs.dev/) and deployed using [Netlify Functions](https://docs.netlify.com/integrations/frameworks/express/).
+A [React](https://react.dev/) application with server-side rendering and server-side data fetching. Powered by [Vite](https://vitejs.dev/) and [Express](https://expressjs.com/).
+
+Deployed using [Netlify Functions](https://docs.netlify.com/integrations/frameworks/express/).
 
 - 🚀 [https://daisy-fay.netlify.app/](https://daisy-fay.netlify.app/)
 
 ## Getting Started
 
-- New pages are added to `src/pages/`
+- New pages are added to `src/pages/[name-of-route]/page.jsx`
 - Pages are named `page.jsx`
-- Functions are named `function.js` (Optional)
+- Functions are named `function.js` and are co-located with the page (Optional).
 
 ### Pages
 
@@ -46,7 +48,7 @@ export const getServerData = async () => {
 npm run dev
 ```
 
-Site available to view on `http://localhost:5173`
+Site available to view on `http://localhost:4173`
 
 ## Production
 
