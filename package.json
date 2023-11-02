@@ -1,12 +1,15 @@
 {
   "name": "daisy-fay",
-  "private": true,
   "version": "0.0.0",
+  "description": "A React application with server-side rendering and server-side data fetching",
   "type": "module",
   "scripts": {
     "dev": "node server-dev.js",
     "build": "node build"
   },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
   "dependencies": {
     "@netlify/functions": "^2.3.0",
     "express": "^4.18.2",
